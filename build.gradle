@@ -33,7 +33,8 @@ dependencies {
 
     implementation 'javax.servlet:jstl'											// JSTL
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'			// JSP 탬플릿 엔진
-    implementation 'org.springframework.security:spring-security-taglibs'		// Security 태그 라이브러리
+    implementation 'org.springframework.security:spring-security-taglibs'		// Security 태그 라이브러리implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
 }
 
 tasks.named('test') {
