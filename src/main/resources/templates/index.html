@@ -13,13 +13,29 @@
 
 
 <div class="container">
-    <div class="card m-2" th:each="board : ${boards}">
+    <div class="card m-2" th:each="board : ${boards.content}">
         <div class="card-body">
             <h4 class="card-title" th:text="${board.getTitle()}">제목</h4>
             <a href="#" class="btn btn-primary">상세보기</a>
         </div>
     </div>
 </div>
+
+
+<ul class="pagination justify-content-center" th:if="${boards.first}">
+    <li class="page-item disabled"><a class="page-link"th:href="@{?page={num}(num=${boards.getNumber()-1})}">Previous</a></li>
+    <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()+1})}">Next</a></li>
+</ul>
+
+<ul class="pagination justify-content-center" th:if="${boards.last}">
+    <li class="page-item"><a class="page-link"th:href="@{?page={num}(num=${boards.getNumber()-1})}">Previous</a></li>
+    <li class="page-item disabled"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()+1})}">Next</a></li>
+</ul>
+
+<ul class="pagination justify-content-center" th:if="!${boards.last} and !${boards.first}">
+    <li class="page-item"><a class="page-link"th:href="@{?page={num}(num=${boards.getNumber()-1})}">Previous</a></li>
+    <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()+1})}">Next</a></li>
+</ul>
 
 
 <footer th:replace="/layout/footer.html :: fragment-footer"></footer>
