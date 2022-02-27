@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="/layout/header.html :: fragment-header"></div>
+</head>
+
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
+
+<body>
+<div th:replace="/layout/nav.html :: fragment-nav"></div>
+
+
+<div class="container">
+
+    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+    <button id="btn-update" class="btn btn-primary">수정</button>
+    <button id="btn-delete" class="btn btn-danger">삭제</button>
+    <br>
+
+    <div class="form-group">
+        <h3 th:text="${board.title}"></h3>
+    </div>
+    <hr>
+
+<!--   th:utext 를 사용해야 DB안에 html태그까지 모두 적용함    -->
+    <div class="form-group">
+        <div th:utext="${board.content}"></div>
+    </div>
+    <hr>
+
+    <!-- 버튼을 밖으로 빼는건 json 요청을 하기 때문이다 -->
+</div>
+
+
+<script src="/js/board.js"></script>
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+</body>
+</html>
