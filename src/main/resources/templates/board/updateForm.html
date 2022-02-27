@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="/layout/header.html :: fragment-header"></div>
+</head>
+
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
+
+<body>
+<div th:replace="/layout/nav.html :: fragment-nav"></div>
+
+
+<div class="container">
+    <form>
+        <input type="hidden" id="id" th:value="${board.id}">
+        <div class="form-group">
+            <input th:value="${board.getTitle()}" type="text" class="form-control" placeholder="Enter title" id="title">
+        </div>
+
+        <div class="form-group">
+            <textarea th:utext="${board.getContent()}" class="form-control summernote" rows="5" id="content"></textarea>
+        </div>
+    </form>
+    <button id="btn-update" class="btn btn-primary">수정하기</button>
+<!-- 버튼을 밖으로 빼는건 json 요청을 하기 때문이다 -->
+</div>
+
+
+<!-- 썸머노트 사용 -->
+<script>
+    $('.summernote').summernote({
+        tabsize: 2,
+        height: 300,
+    });
+</script>
+
+<script src="/js/board.js"></script>
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+</body>
+</html>
