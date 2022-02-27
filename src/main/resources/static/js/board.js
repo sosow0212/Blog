@@ -16,6 +16,9 @@ let index = {
         $("#btn-save").on("click", () => {
             this.save(); // save함수 이벤트로 호출
         });
+        $("#btn-delete").on("click", () => {
+            this.deleteById();
+        });
 
     },
 
@@ -37,6 +40,23 @@ let index = {
             dataType: "json" // 요청을 서버로해서 응답이 왔을 때, 기본적으로 모든 것이 문자열 (생긴게 json이라면 javascript 오브젝트로 변경해줌)
         }).done(function (res) {
             alert("글쓰기가 완료되었습니다.");
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+
+    },
+
+    deleteById: function () {
+        let id = $("#id").text();
+        console.log(id);
+
+        $.ajax({
+            type: "DELETE",
+            url: "/api/board/" + id,
+            dataType: "json",
+        }).done(function (res) {
+            alert("삭제가 완료되었습니다.");
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));

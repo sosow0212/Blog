@@ -17,20 +17,27 @@
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
     <button id="btn-update" class="btn btn-primary">수정</button>
     <button id="btn-delete" class="btn btn-danger">삭제</button>
-    <br>
+    <br/><br/>
+
+
+    <div>
+        글번호 : <span th:id="id"><i th:text="${board.id}"></i></span>
+        작성자 : <span><i th:text="${board.getUser().getUsername()}"></i></span>
+    </div>
+    <br/>
+
 
     <div class="form-group">
         <h3 th:text="${board.title}"></h3>
     </div>
     <hr>
 
-<!--   th:utext 를 사용해야 DB안에 html태그까지 모두 적용함    -->
+
+    <!--   th:utext 를 사용해야 DB안에 html태그까지 모두 적용함    -->
     <div class="form-group">
         <div th:utext="${board.content}"></div>
     </div>
     <hr>
-
-    <!-- 버튼을 밖으로 빼는건 json 요청을 하기 때문이다 -->
 </div>
 
 
