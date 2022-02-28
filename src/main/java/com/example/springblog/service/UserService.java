@@ -4,6 +4,10 @@ import com.example.springblog.model.RoleType;
 import com.example.springblog.model.User;
 import com.example.springblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,8 @@ public class UserService {
 
     @Autowired // DI 주입
     private BCryptPasswordEncoder encode;
+
+
 
 
     @Transactional // 전체가 성공시 Commit, 실패시 Rollback - springframework
@@ -42,6 +48,7 @@ public class UserService {
         String encPassword = encode.encode(rawPassword);
         persistance.setPassword(encPassword);
         persistance.setEmail(user.getEmail());
+
 
         // 회원수정 함수 종료시 == 서비스 종료 == 트랜잭션 종료 == commit이 자동으로 됨
         // 영속화된 persistance 객체의 변화가 감지되면 더티체킹이 되어 변경된 것들을 update해준다.
