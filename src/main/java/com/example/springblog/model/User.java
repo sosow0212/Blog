@@ -23,7 +23,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String username; // 아이디
 
     @Column(nullable = false, length = 100)
@@ -36,6 +36,8 @@ public class User {
     // DB는 RoleType이라는게 없어서, String임을 알려준다.
     @Enumerated(EnumType.STRING)
     private RoleType role; // Enum을 쓰면, ADMIN,USER로 형이 강제가 된다.
+
+    private String oauth; // kakao, google ... 회원수정을 막기위해 필요함
 
     @CreationTimestamp // 시간이 자동 입력
     private Timestamp createDate;

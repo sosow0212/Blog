@@ -4,10 +4,6 @@ import com.example.springblog.model.RoleType;
 import com.example.springblog.model.User;
 import com.example.springblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +19,13 @@ public class UserService {
     private BCryptPasswordEncoder encode;
 
 
+    @Transactional(readOnly = true)
+    public User 회원찾기(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(() -> {
+            return new User();
+        });
+        return user;
+    }
 
 
     @Transactional // 전체가 성공시 Commit, 실패시 Rollback - springframework
@@ -44,9 +47,15 @@ public class UserService {
             return new IllegalArgumentException("회원 찾기 실패");
         });
 
-        String rawPassword = user.getPassword();
-        String encPassword = encode.encode(rawPassword);
-        persistance.setPassword(encPassword);
+
+        //OAuth Validate 체크
+        if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = encode.encode(rawPassword);
+            persistance.setPassword(encPassword);
+            persistance.setEmail(user.getEmail());
+        }
+
         persistance.setEmail(user.getEmail());
 
 
