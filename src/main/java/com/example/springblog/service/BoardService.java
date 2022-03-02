@@ -3,6 +3,7 @@ package com.example.springblog.service;
 import com.example.springblog.model.Board;
 import com.example.springblog.model.User;
 import com.example.springblog.repository.BoardRepository;
+import com.example.springblog.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,9 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
 
     @Transactional

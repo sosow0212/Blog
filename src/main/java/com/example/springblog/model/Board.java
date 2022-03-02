@@ -1,5 +1,6 @@
 package com.example.springblog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,13 +31,15 @@ public class Board {
 
     private int count; // 조회수
 
-    @ManyToOne(fetch = FetchType.EAGER) // EAGER은 바로 로드하는 것임
+    @ManyToOne(fetch = FetchType.EAGER) // EAGER은 호출할 때 바로 로드하는 것임
     @JoinColumn(name="userId")
     private User user;
 
     // 기본 패치 전략은 LAZY 전략임
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 연관관계의 주인이 아니다 == FK가 아니라는 뜻, DB에 컬럼을 만들지 말라는 뜻
-    private List<Reply> reply;
+    @JsonIgnoreProperties({"board"}) // 댓글 무한참조 방지가 됨 == getter 호출을 막음
+    @OrderBy("id desc") // Board를 부를 때, replys_id 기준으로 내림차순으로 정렬을함 - 즉 최근 댓글이 맨 위
+    private List<Reply> replys;
 
     @CreationTimestamp
     private Timestamp createDate;

@@ -48,11 +48,11 @@
     <br>
     <div class="card">
         <div class="card-header">댓글 리스트</div>
-        <ul id="comment--box" class="list-group">
-            <li id="comment--1" class="list-group-item d-flex justify-content-between">
-                <div>댓글 내용</div>
+        <ul th:each="reply : ${board.replys}" id="reply--box" class="list-group">
+            <li id="reply--1" class="list-group-item d-flex justify-content-between">
+                <div th:text="${reply.content}">댓글 내용</div>
                 <div class="d-flex ">
-                    <div class="font-italic">작성자 : yoon &nbsp;</div>
+                    <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : yoon &nbsp;</div>
                     <button class="badge">삭제</button>
                 </div>
             </li>
