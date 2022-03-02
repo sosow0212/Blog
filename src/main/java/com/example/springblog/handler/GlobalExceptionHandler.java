@@ -14,5 +14,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     private ResponseDto<String> handleArgumentException(Exception e) {
         return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        // INTERNAL_SERVER_ERROR = 500 값임
     }
 }

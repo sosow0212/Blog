@@ -39,6 +39,8 @@ public class BoardApiController {
 
 
 
+    // 데이터를 받을 때, 원래 컨트롤러에서 dto를 만들어서 받는게 좋음
+    // dto를 사용하지 않는 이유는, 큰 프로젝트에서는 데이터가 오고가는게 많으니 꼭 써야함
     // 댓글쓰기
     @PostMapping("/api/board/{boardId}/reply")
     public ResponseDto<Integer> replySave(@PathVariable("boardId") Integer boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principalDetail) {

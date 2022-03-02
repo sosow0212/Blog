@@ -35,8 +35,8 @@ public class Board {
     @JoinColumn(name="userId")
     private User user;
 
-    // 기본 패치 전략은 LAZY 전략임
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 연관관계의 주인이 아니다 == FK가 아니라는 뜻, DB에 컬럼을 만들지 말라는 뜻
+    // 기본 패치 전략은 LAZY 전략임, CascadeType.REMOVE는 board게시물을 지울때, 댓글도 날리겠다라는 뜻임. 이걸 안 쓰면 게시물 지우면 성공알람은 뜨나, 지워지질 않음(댓글이 남아있기 때문)
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // 연관관계의 주인이 아니다 == FK가 아니라는 뜻, DB에 컬럼을 만들지 말라는 뜻
     @JsonIgnoreProperties({"board"}) // 댓글 무한참조 방지가 됨 == getter 호출을 막음
     @OrderBy("id desc") // Board를 부를 때, replys_id 기준으로 내림차순으로 정렬을함 - 즉 최근 댓글이 맨 위
     private List<Reply> replys;
