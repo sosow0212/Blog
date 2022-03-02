@@ -82,4 +82,15 @@ public class BoardService {
     public void 댓글삭제(int replyId) {
         replyRepository.deleteById(replyId);
     }
+
+
+    public User 댓글주인(int replyId) {
+        Reply reply = replyRepository.findById(replyId).orElseThrow(() -> {
+            return new IllegalArgumentException("댓글 주인을 찾을 수 없습니다.");
+        });
+
+        User user = reply.getUser(); // 댓글 주인
+        return user;
+
+    }
 }

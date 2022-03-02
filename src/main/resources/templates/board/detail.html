@@ -14,10 +14,18 @@
 
 <div class="container">
 
-    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-    <a th:href="@{/board/{id}/updateForm(id=${board.id})}" class="btn btn-primary">수정</a>
-    <button id="btn-delete" class="btn btn-danger">삭제</button>
-    <br/><br/>
+    <div th:if="${board.getUser().username == #authentication.name}">
+        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+        <a th:href="@{/board/{id}/updateForm(id=${board.id})}" class="btn btn-primary">수정</a>
+        <button id="btn-delete" class="btn btn-danger">삭제</button>
+        <br/><br/>
+    </div>
+
+    <div th:unless="${board.getUser().username == #authentication.name}">
+        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+        <br/><br/>
+    </div>
+
 
 
     <div>
@@ -64,10 +72,15 @@
         <ul th:each="reply : ${board.replys}" id="reply-box" class="list-group">
             <li th:id="|reply-${reply.id}|" class="list-group-item d-flex justify-content-between">
                 <div th:text="${reply.content}">댓글 내용</div>
-                <div class="d-flex ">
+
+                <div th:if="${reply.user.username == #authentication.name}" class="d-flex ">
                     <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : yoon &nbsp;</div>
                     <button th:onclick="|javascript:index.replyDelete(${board.id}, ${reply.id})|" class="badge">삭제</button>
                 </div>
+                <div th:unless="${reply.user.username == #authentication.name}" class="d-flex ">
+                    <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : yoon &nbsp;</div>
+                </div>
+
             </li>
         </ul>
     </div>

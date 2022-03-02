@@ -4,6 +4,8 @@ import com.example.springblog.config.auth.PrincipalDetail;
 import com.example.springblog.dto.ResponseDto;
 import com.example.springblog.model.Board;
 import com.example.springblog.model.Reply;
+import com.example.springblog.model.User;
+import com.example.springblog.repository.ReplyRepository;
 import com.example.springblog.service.BoardService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +53,15 @@ public class BoardApiController {
 
 
     @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
-    public ResponseDto<Integer> replyDelete(@PathVariable("boardId") Integer boardId, @PathVariable("replyId") Integer replyId) {
-        boardService.댓글삭제(replyId);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    public ResponseDto<Integer> replyDelete(@AuthenticationPrincipal PrincipalDetail principalDetail ,@PathVariable("boardId") Integer boardId, @PathVariable("replyId") Integer replyId) {
+
+        User replyWriter = boardService.댓글주인(replyId);
+        if(replyWriter == principalDetail.getUser()) {
+            boardService.댓글삭제(replyId);
+            return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        } else {
+            return new ResponseDto<Integer>(HttpStatus.FORBIDDEN.value(), 1);
+        }
+
     }
 }
