@@ -22,6 +22,9 @@ let index = {
         $("#btn-update").on("click", () => {
             this.update();
         });
+        $("#btn-reply-save").on("click", () => {
+            this.replySave();
+        });
     },
 
     save: function () {
@@ -84,6 +87,32 @@ let index = {
         }).done(function (res) {
             alert("글 수정이 완료되었습니다.");
             location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+
+    },
+
+
+
+    replySave: function () {
+        let data = {
+            content: $("#reply-content").val(),
+        };
+
+        // 데이터에 담을게 아니니 따로 뺌, int형이니 .val() 붙임
+        let boardId = $("#boardId").val();
+
+        $.ajax({
+            // 회원가입 수행 요청
+            type: "POST",
+            url: `/api/board/${boardId}/reply`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (res) {
+            alert("댓글 작성이 완료되었습니다.");
+            location.href = `/board/${boardId}`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

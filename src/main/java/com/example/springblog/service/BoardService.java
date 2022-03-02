@@ -1,6 +1,7 @@
 package com.example.springblog.service;
 
 import com.example.springblog.model.Board;
+import com.example.springblog.model.Reply;
 import com.example.springblog.model.User;
 import com.example.springblog.repository.BoardRepository;
 import com.example.springblog.repository.ReplyRepository;
@@ -60,5 +61,20 @@ public class BoardService {
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
         // 해당 함수(Service) 가 종료될 때 트랜잭션이 종료된다. 이때 더디체킹 - 자동 업데이트가 됨. flush
+    }
+
+
+
+    @Transactional
+    public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 ID를 찾을 수 없습니다.");
+                });
+        requestReply.setUser(user);
+        requestReply.setBoard(board);
+
+        replyRepository.save(requestReply);
+
     }
 }

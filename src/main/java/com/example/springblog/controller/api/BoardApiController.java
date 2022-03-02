@@ -3,6 +3,7 @@ package com.example.springblog.controller.api;
 import com.example.springblog.config.auth.PrincipalDetail;
 import com.example.springblog.dto.ResponseDto;
 import com.example.springblog.model.Board;
+import com.example.springblog.model.Reply;
 import com.example.springblog.service.BoardService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,16 @@ public class BoardApiController {
     @PutMapping("/api/board/{id}")
     public ResponseDto<Integer> update(@PathVariable("id") Integer id, @RequestBody Board board) {
         boardService.글수정하기(id, board);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+
+
+    // 댓글쓰기
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> replySave(@PathVariable("boardId") Integer boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+
+        boardService.댓글쓰기(principalDetail.getUser(), boardId, reply);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }
