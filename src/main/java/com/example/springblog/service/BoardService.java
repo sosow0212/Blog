@@ -39,6 +39,12 @@ public class BoardService {
 
 
     @Transactional(readOnly = true)
+    public List<Board> 작성글목록(User user) {
+        return boardRepository.findAllByUser(user);
+    }
+
+
+    @Transactional(readOnly = true)
     public Board 글상세보기(int id) {
         return boardRepository.findById(id)
                 .orElseThrow(() -> {

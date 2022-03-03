@@ -4,11 +4,15 @@ import com.example.springblog.config.auth.PrincipalDetail;
 import com.example.springblog.model.KakaoProfile;
 import com.example.springblog.model.OAuthToken;
 import com.example.springblog.model.User;
+import com.example.springblog.service.BoardService;
 import com.example.springblog.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -43,9 +48,12 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BoardService boardService;
+
 
     @GetMapping("/auth/joinForm")
     public String joinForm() {
@@ -171,5 +179,13 @@ public class UserController {
     public String updateForm(Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
         model.addAttribute("user", principalDetail.getUser());
         return "/user/updateForm";
+    }
+
+
+    // 작성글 보기
+    @GetMapping("/user/myBoard")
+    public String index(Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        model.addAttribute("boards", boardService.작성글목록(principalDetail.getUser()));
+        return "/user/myBoard";
     }
 }
