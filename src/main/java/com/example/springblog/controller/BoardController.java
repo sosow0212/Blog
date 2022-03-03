@@ -37,7 +37,7 @@ public class BoardController {
     public String updateForm(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
         Board board = boardService.글상세보기(id);
         User boardWriter = board.getUser();
-        if(boardWriter == principalDetail.getUser()) {
+        if(boardWriter.equals(principalDetail.getUser())) {
             model.addAttribute("board", boardService.글상세보기(id));
             return "board/updateForm";
         } else {

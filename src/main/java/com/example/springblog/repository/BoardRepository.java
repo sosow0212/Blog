@@ -12,5 +12,5 @@ import java.util.Optional;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
-    List<Board> findAllByUser(User user);
+    List<Board> findAllByUserOrderByIdDesc(User user);
 }

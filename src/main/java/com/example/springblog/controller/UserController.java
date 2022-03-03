@@ -185,6 +185,7 @@ public class UserController {
     // 작성글 보기
     @GetMapping("/user/myBoard")
     public String index(Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        model.addAttribute("user", principalDetail.getUser());
         model.addAttribute("boards", boardService.작성글목록(principalDetail.getUser()));
         return "/user/myBoard";
     }
