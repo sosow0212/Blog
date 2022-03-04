@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +25,11 @@ public class BoardService {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Transactional(readOnly = true)
+    public List<Board> allBoard() {
+        List<Board> boards = boardRepository.findAll();
+        return boards;
+    }
 
     @Transactional
     public void 글쓰기(Board board, User user) { //title, content, count
