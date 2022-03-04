@@ -17,9 +17,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <h4 class="card-title" th:text="${board.getTitle()}">제목</h4>
-                <p th:text="|작성자 : ${board.getUser().getUsername()}|">작성자 : ㅇㅇ</p>
+                <strong th:text="|작성자 : ${board.getUser().getUsername()}|">작성자 : ㅇㅇ</strong>
             </div>
-            <a th:href="@{/board/{id}(id=${board.getId()})}" class="btn btn-primary">상세보기</a>
+            <div class="d-flex justify-content-between">
+                <a th:href="@{/board/{id}(id=${board.getId()})}" class="btn btn-primary">상세보기</a>
+                <p th:text="|조회수 : ${board.getCount()}|">조회수 : 3</p>
+            </div>
         </div>
     </div>
 </div>
