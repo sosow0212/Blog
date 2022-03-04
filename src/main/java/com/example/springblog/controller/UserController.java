@@ -10,9 +10,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,11 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-import java.util.UUID;
 
 
 // 인증이 안된 사용자들이 출입할 수 있는 경로
@@ -157,6 +150,7 @@ public class UserController {
                 .email(kakaoProfile.getKakao_account().getEmail())
                 .oauth("kakao")
                 .build();
+
 
         // 가입자 혹은 비가입자 체크해서 처리
         User originUser = userService.회원찾기(kakaoUser.getUsername());
