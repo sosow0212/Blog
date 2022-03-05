@@ -31,6 +31,7 @@ let index = {
         let data = {
             title: $("#title").val(),
             content: $("#content").val(),
+            category: $("#category").val(),
         }
 
         // ajax 호출시 default가 비동기 호출이다.
