@@ -77,6 +77,7 @@ let index = {
         let data = {
             title: $("#title").val(),
             content: $("#content").val(),
+            category:$("#category").val(),
         };
 
         $.ajax({
