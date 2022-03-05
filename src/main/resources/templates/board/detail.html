@@ -27,10 +27,12 @@
     </div>
 
 
-
     <div>
-        글번호 : <span th:id="id"><i th:text="${board.id}"></i></span>
-        작성자 : <span><i th:text="${board.getUser().getUsername()}"></i></span>
+
+        작성자 : <span><i th:text="${board.getUser().getUsername()}"></i></span><br>
+        작성날짜 : <span th:text="${board.getCreateDate()}"></span>
+        글번호 : <span th:id="id"><i th:text="${board.id}"></i></span><br>
+        조회수 : <span th:text="${board.count}"></span><br>
     </div>
     <br/>
 
@@ -66,20 +68,22 @@
     <br>
 
 
-
     <div class="card">
         <div class="card-header">댓글 리스트</div>
         <ul th:each="reply : ${board.replys}" id="reply-box" class="list-group">
-            <li th:id="|reply-${reply.id}|" class="list-group-item d-flex justify-content-between">
-                <div th:text="${reply.content}">댓글 내용</div>
+            <li th:id="|reply-${reply.id}|" class="list-group-item">
 
                 <div th:if="${reply.user.username == #authentication.name}" class="d-flex ">
                     <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : yoon &nbsp;</div>
-                    <button th:onclick="|javascript:index.replyDelete(${board.id}, ${reply.id})|" class="badge">삭제</button>
+                    <button th:onclick="|javascript:index.replyDelete(${board.id}, ${reply.id})|" class="badge">삭제
+                    </button>
                 </div>
                 <div th:unless="${reply.user.username == #authentication.name}" class="d-flex ">
                     <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : yoon &nbsp;</div>
                 </div>
+
+
+                <div th:text="${reply.content}">댓글 내용</div>
 
             </li>
         </ul>
