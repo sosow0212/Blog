@@ -21,11 +21,29 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    // 전체 글 보기
     @GetMapping({"", "/"})
     public String index(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         model.addAttribute("boards", boardService.글목록(pageable));
         return "index";
     }
+
+    // 일상 카테고리
+    @GetMapping("/daily")
+    public String daily(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("boards", boardService.카테고리글목록(pageable, "daily"));
+        return "daily";
+    }
+
+    // 데이트 카테고리
+    @GetMapping("/date")
+    public String date(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("boards", boardService.카테고리글목록(pageable, "date"));
+        return "date";
+    }
+
+
+
 
     @GetMapping("/board/{id}")
     public String findById(@PathVariable("id") Integer id, Model model) {

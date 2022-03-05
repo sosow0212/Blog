@@ -45,6 +45,15 @@ public class BoardService {
     }
 
 
+    // 카테고리별 글 목록
+    @Transactional(readOnly = true)
+    public Page<Board> 카테고리글목록(Pageable pageable, String category) {
+        return boardRepository.findByCategory(pageable, category);
+    }
+
+
+
+
     @Transactional(readOnly = true)
     public List<Board> 작성글목록(User user) {
         return boardRepository.findAllByUserOrderByIdDesc(user);

@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="/layout/header.html :: fragment-header"></div>
+</head>
+
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
+
+<body>
+<div th:replace="/layout/nav.html :: fragment-nav"></div>
+
+
+<div class="container">
+    <h1>Daily</h1><br>
+    <div class="card m-2" th:each="board : ${boards.content}">
+        <div class="card-body">
+            <h4 class="card-title" th:text="${board.getTitle()}">제목</h4>
+            <strong th:text="|작성자 : ${board.getUser().getUsername()}|">작성자 : ㅇㅇ</strong>
+            <p th:text="|작성날짜 : ${board.createDate}|"></p>
+            <p th:text="|조회수 : ${board.getCount()}|">조회수 : 3</p>
+            <a th:href="@{/board/{id}(id=${board.getId()})}" class="btn btn-primary">상세보기</a>
+        </div>
+    </div>
+</div>
+
+
+<ul class="pagination justify-content-center" th:if="${boards.first}">
+    <li class="page-item disabled"><a class="page-link"
+                                      th:href="@{?page={num}(num=${boards.getNumber()-1})}">Previous</a></li>
+    <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()+1})}">Next</a></li>
+</ul>
+
+<ul class="pagination justify-content-center" th:if="${boards.last}">
+    <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()-1})}">Previous</a></li>
+    <li class="page-item disabled"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()+1})}">Next</a>
+    </li>
+</ul>
+
+<ul class="pagination justify-content-center" th:if="!${boards.last} and !${boards.first}">
+    <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()-1})}">Previous</a></li>
+    <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boards.getNumber()+1})}">Next</a></li>
+</ul>
+
+
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+
+</body>
+</html>
