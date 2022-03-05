@@ -21,14 +21,11 @@
 
     <div class="card m-2" th:each="board : ${boards}">
         <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <h4 class="card-title" th:text="${board.getTitle()}">제목</h4>
-                <strong th:text="|작성자 : ${user.getUsername()}|">작성자 : ㅇㅇ</strong>
-            </div>
-            <div class="d-flex justify-content-between">
-                <a th:href="@{/board/{id}(id=${board.getId()})}" class="btn btn-primary">상세보기</a>
-                <p th:text="|조회수 : ${board.getCount()}|">조회수 : 3</p>
-            </div>
+            <h4 class="card-title" th:text="${board.getTitle()}">제목</h4>
+            <strong th:text="|작성자 : ${board.getUser().getUsername()}|">작성자 : ㅇㅇ</strong>
+            <p th:text="|작성날짜 : ${board.createDate}|"></p>
+            <p th:text="|조회수 : ${board.getCount()}|">조회수 : 3</p>
+            <a th:href="@{/board/{id}(id=${board.getId()})}" class="btn btn-primary">상세보기</a>
         </div>
     </div>
 </div>
