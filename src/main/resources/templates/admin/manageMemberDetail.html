@@ -10,15 +10,36 @@
 
 
 <div class="container">
-    <h1>xxx님 등급 수정하기</h1>
-    <hr>
 
+    <div>
+        <h1 th:text="|${user.getUsername()} 님 등급 수정하기|">xxx님 등급 수정하기</h1>
+        <br>
 
+        <form>
+            <input type="hidden" id="id" th:value="${user.id}">
 
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" th:value="USER" class="radio-value form-check-input" name="optradio" checked>USER
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" th:value="ADMIN" class="radio-value form-check-input" name="optradio">ADMIN
+                </label>
+            </div>
+
+        </form>
+        <button id="btn-update" class="btn btn-primary">등급 수정 완료</button>
+    </div>
     <hr/>
-    <h1>xxx 님의 작성 글</h1>
-    <hr/>
 
+
+
+
+    <h1 th:text="|${user.getUsername()} 님 등급 수정하기|">xxx님의 작성글</h1>
+    <br>
     <table class="table">
         <thead>
         <tr>
@@ -31,12 +52,12 @@
         </thead>
 
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>제목입니다.</td>
-                <td>30명</td>
-                <td>2022-01-03</td>
-                <td>링크</td>
+            <tr th:each="board, i : ${boards}">
+                <th scope="row" th:text="${i.count}">1</th>
+                <td th:text="${board.getTitle()}">제목입니다.</td>
+                <td th:text="${board.getCount()}">30명</td>
+                <td th:text="${board.getCreateDate()}">2022-01-03</td>
+                <td><a th:href="@{/board/{id}(id=${board.getId()})}">링크</a></td>
             </tr>
 
         </tbody>
@@ -47,5 +68,6 @@
 
 <footer th:replace="/layout/footer.html :: fragment-footer"></footer>
 
+<script src="/js/admin.js"></script>
 </body>
 </html>
