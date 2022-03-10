@@ -1,7 +1,3 @@
-console.log("radio-value")
-
-
-
 let index = {
     init: function () {
 
@@ -14,13 +10,17 @@ let index = {
 
     update: function () {
         let data = {
-            id: $("#id").val(),
             role: $(".radio-value:checked").val(),
-        }
+        };
+        let id = $("#id").val();
+
+
+        console.log(data)
+        console.log(id)
 
         $.ajax({
             type: "PUT",
-            url: "/#",
+            url: "/admin/manage/member/edit/" + id,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"

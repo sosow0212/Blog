@@ -18,6 +18,13 @@ public class UserService {
     @Autowired // DI 주입
     private BCryptPasswordEncoder encode;
 
+    @Transactional(readOnly = true)
+    public User findById(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("회원 찾기 실패");
+        });
+        return user;
+    }
 
     @Transactional(readOnly = true)
     public User 회원찾기(String username) {
@@ -36,6 +43,7 @@ public class UserService {
         user.setRole(RoleType.USER);
         userRepository.save(user);
     }
+
 
     @Transactional
     public void 회원수정(User user) {
