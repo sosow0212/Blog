@@ -13,16 +13,53 @@ public class AdminController {
     @GetMapping("/admin")
     public String adminPage(@AuthenticationPrincipal PrincipalDetail principalDetail) {
         User user = principalDetail.getUser();
-        System.out.println(user.getRole());
-
-        if(user.getRole() == RoleType.ADMIN) {
-            System.out.println("나 실행됨 1");
+        if (user.getRole() == RoleType.ADMIN) {
             return "/admin/adminMainPage";
         } else {
             System.out.println("나 실행됨 2");
             return "redirect:/";
         }
+    }
 
+
+    // 전체 회원 관리
+    @GetMapping("/admin/manage/member")
+    public String manageMember(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+        User user = principalDetail.getUser();
+        if (user.getRole() == RoleType.ADMIN) {
+
+
+
+
+
+            return "/admin/manageMember";
+        } else {
+            System.out.println("나 실행됨 2");
+            return "redirect:/";
+        }
+
+
+    }
+
+
+
+    // 방문 통계 관리
+    @GetMapping("/admin/manage/visit")
+    public String manageVisit(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+
+        User user = principalDetail.getUser();
+        if (user.getRole() == RoleType.ADMIN) {
+
+
+
+
+
+
+            return "/admin/manageVisit";
+        } else {
+            System.out.println("나 실행됨 2");
+            return "redirect:/";
+        }
     }
 
 }

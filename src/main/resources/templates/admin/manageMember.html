@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="/layout/header.html :: fragment-header"></div>
+</head>
+
+
+<body>
+<div th:replace="/layout/nav.html :: fragment-nav"></div>
+
+
+<div class="container">
+    <h1>전체 회원 관리</h1>
+    <hr/>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">등급</th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">가입일자</th>
+            <th scope="col">수정 및 게시글 확인</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>USER</td>
+                <td>test</td>
+                <td>test@test</td>
+                <td>2022-01-01</td>
+                <td><a href="#">링크</a></td>
+            </tr>
+
+            <tr>
+                <th scope="row">1</th>
+                <td>USER</td>
+                <td>test</td>
+                <td>test@test</td>
+                <td>2022-01-01</td>
+                <td><a href="#">링크</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+
+</body>
+</html>
