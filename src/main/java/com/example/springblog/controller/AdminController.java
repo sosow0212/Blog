@@ -69,13 +69,14 @@ public class AdminController {
 
     // 방문 통계 관리
     @GetMapping("/admin/manage/visit")
-    public String manageVisit(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public String manageVisit(@AuthenticationPrincipal PrincipalDetail principalDetail, Model model) {
 
         User user = principalDetail.getUser();
         if (user.getRole() == RoleType.ADMIN) {
-
-
-
+            int totalVisitCount = adminService.getTotalViewCount();
+            int totalUsersCount = adminService.getTotalUsersCount();
+            model.addAttribute("totalVisitCount", totalVisitCount);
+            model.addAttribute("totalUserCount", totalUsersCount);
 
 
 
