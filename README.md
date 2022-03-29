@@ -4,7 +4,7 @@
 
 ### 프로젝트 설명
 
-- Rest API + 비동기통신
+- Rest API + 비동기통신 
 - Spring boot, Thymeleaf, MariaDB, Lombok, Spring Security, Spring web, Jpa
 - Rest API 통신에 초점을 맞추고 진행하였습니다.
 
